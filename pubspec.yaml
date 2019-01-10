@@ -6,3 +6,6 @@ homepage: matthewhuie.com
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  http: ^0.12.0

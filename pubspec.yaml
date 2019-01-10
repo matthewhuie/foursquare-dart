@@ -1,0 +1,8 @@
+name: foursquare
+description: Foursquare for Dart 
+version: 0.0.1
+author: Matthew Huie <matthew@matthewhuie.com>
+homepage: matthewhuie.com
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"

@@ -5,14 +5,17 @@ import 'venue.dart';
 class API {
   API.userless(String clientId, String clientSecret) {
     _authParameter = '&client_id=$clientId&client_secret=$clientSecret'
+    _isAuthed = false;
   }
   API.authed(String accessToken) {
     _authParameter = '&oauth_token=$authToken'
+    _isAuthed = true;
   }
 
   String _authParameter;
+  bool _isAuthed;
 
-  Future<Map<String, dynamic>> get (String endpoint, [String parameters='']) async {
+  Future<Map<String, dynamic>> get(String endpoint, [String parameters='']) async {
     final response = await http
       .get('https://api.foursquare.com/v2/$endpoint?v=20190101$_authParameter$parameters')
       .timeout(Duration(seconds: 5));
@@ -23,10 +26,21 @@ class API {
     }
   }
 
-  Set<Venue> getLikedVenues (String userId) {
+  Set<Venue> getLikedVenues(String userId) {
     List items = get('lists/$userId/venuelikes', 'limit=10000')['list']['listItems']['items'];
     return items
       .where((item) => item['type'] == 'venue')
       .map((item) => Venue.fromJson(item['venue'])).toSet();
+  }
+
+  Set<Venue> getSavedVenues(String userId) {
+    List items = get('lists/$userId/todos', 'limit=10000')['list']['listItems']['items'];
+    return items
+      .where((item) => item['type'] == 'venue')
+      .map((item) => Venue.fromJson(item['venue'])).toSet();
+  }
+
+  User getSelf() {
+    return User.fromJson(get('users/self')['user']);
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'user.dart';
 import 'venue.dart';
 
 class API {
@@ -15,6 +16,7 @@ class API {
   String _authParameter;
   bool _isAuthed;
 
+  /// Performs a GET request to Foursquare
   Future<Map<String, dynamic>> get(String endpoint, [String parameters='']) async {
     final response = await http
       .get('https://api.foursquare.com/v2/$endpoint?v=20190101$_authParameter$parameters')
@@ -26,21 +28,26 @@ class API {
     }
   }
 
-  Set<Venue> getLikedVenues(String userId) {
-    List items = get('lists/$userId/venuelikes', 'limit=10000')['list']['listItems']['items'];
-    return items
-      .where((item) => item['type'] == 'venue')
-      .map((item) => Venue.fromJson(item['venue'])).toSet();
+  List<Venue> venueSearch(double latitude, double longitude, [String parameters='']) {
+    List items = get('venues/search', '&ll=$latitude,$longitude$parameters')['venues']
+    return items.map((item) => Venue.fromJson(item)).toList();
   }
 
-  Set<Venue> getSavedVenues(String userId) {
-    List items = get('lists/$userId/todos', 'limit=10000')['list']['listItems']['items'];
+  List<Venue> venuesLiked(String userId) {
+    List items = get('lists/$userId/venuelikes', '&limit=10000')['list']['listItems']['items'];
     return items
       .where((item) => item['type'] == 'venue')
-      .map((item) => Venue.fromJson(item['venue'])).toSet();
+      .map((item) => Venue.fromJson(item['venue'])).toList();
   }
 
-  User getSelf() {
-    return User.fromJson(get('users/self')['user']);
+  List<Venue> venuesSaved(String userId) {
+    List items = get('lists/$userId/todos', '&limit=10000')['list']['listItems']['items'];
+    return items
+      .where((item) => item['type'] == 'venue')
+      .map((item) => Venue.fromJson(item['venue'])).toList();
+  }
+
+  User userDetails(String userId) {
+    return User.fromJson(get('users/$userId')['user']);
   }
 }

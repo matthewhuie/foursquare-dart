@@ -5,18 +5,18 @@ import 'venue.dart';
 
 class API {
   API.userless(String clientId, String clientSecret) {
-    _authParameter = '&client_id=$clientId&client_secret=$clientSecret'
+    _authParameter = '&client_id=$clientId&client_secret=$clientSecret';
     _isAuthed = false;
   }
   API.authed(String accessToken) {
-    _authParameter = '&oauth_token=$authToken'
+    _authParameter = '&oauth_token=$accessToken';
     _isAuthed = true;
   }
 
   String _authParameter;
   bool _isAuthed;
 
-  /// Performs a GET request to Foursquare
+  /// Performs a GET request to Foursquare API.
   Future<Map<String, dynamic>> get(String endpoint, [String parameters='']) async {
     final response = await http
       .get('https://api.foursquare.com/v2/$endpoint?v=20190101$_authParameter$parameters')
@@ -28,26 +28,26 @@ class API {
     }
   }
 
-  List<Venue> venueSearch(double latitude, double longitude, [String parameters='']) {
-    List items = get('venues/search', '&ll=$latitude,$longitude$parameters')['venues']
+  Future<List<Venue>> venueSearch(double latitude, double longitude, [String parameters='']) async {
+    List items = (await get('venues/search', '&ll=$latitude,$longitude$parameters'))['venues'];
     return items.map((item) => Venue.fromJson(item)).toList();
   }
 
-  List<Venue> venuesLiked(String userId) {
-    List items = get('lists/$userId/venuelikes', '&limit=10000')['list']['listItems']['items'];
+  Future<List<Venue>> venuesLiked(String userId) async {
+    List items = (await get('lists/$userId/venuelikes', '&limit=10000'))['list']['listItems']['items'];
     return items
       .where((item) => item['type'] == 'venue')
       .map((item) => Venue.fromJson(item['venue'])).toList();
   }
 
-  List<Venue> venuesSaved(String userId) {
-    List items = get('lists/$userId/todos', '&limit=10000')['list']['listItems']['items'];
+  Future<List<Venue>> venuesSaved(String userId) async {
+    List items = (await get('lists/$userId/todos', '&limit=10000'))['list']['listItems']['items'];
     return items
       .where((item) => item['type'] == 'venue')
       .map((item) => Venue.fromJson(item['venue'])).toList();
   }
 
-  User userDetails(String userId) {
-    return User.fromJson(get('users/$userId')['user']);
+  Future<User> userDetails(String userId) async {
+    return User.fromJson((await get('users/$userId'))['user']);
   }
 }

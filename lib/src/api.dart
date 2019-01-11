@@ -33,21 +33,26 @@ class API {
     return items.map((item) => Venue.fromJson(item)).toList();
   }
 
-  Future<List<Venue>> venuesLiked(String userId) async {
+  Future<List<Venue>> venuesLiked({userId = 'self'}) async {
     List items = (await get('lists/$userId/venuelikes', '&limit=10000'))['list']['listItems']['items'];
     return items
       .where((item) => item['type'] == 'venue')
       .map((item) => Venue.fromJson(item['venue'])).toList();
   }
 
-  Future<List<Venue>> venuesSaved(String userId) async {
+  Future<List<Venue>> venuesSaved({userId = 'self'}) async {
     List items = (await get('lists/$userId/todos', '&limit=10000'))['list']['listItems']['items'];
     return items
       .where((item) => item['type'] == 'venue')
       .map((item) => Venue.fromJson(item['venue'])).toList();
   }
 
-  Future<User> userDetails(String userId) async {
+  Future<User> userDetails({userId = 'self'}) async {
     return User.fromJson((await get('users/$userId'))['user']);
+  }
+
+  Future<List<User>> userFriends({userId = 'self'}) async {
+    List items = (await get('lists/$userId/friends', '&limit=10000'))['friends']['items'];
+    return items.map((item) => User.fromJson(item)).toList();
   }
 }

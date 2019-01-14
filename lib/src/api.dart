@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'user.dart';
-import 'venue.dart';
 
 class API {
   API.userless(String clientId, String clientSecret) {

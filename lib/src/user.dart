@@ -26,7 +26,7 @@ class User {
   }
 
   static Future<List<User>> friends(API api, {userId = 'self'}) async {
-    List items = (await api.get('lists/$userId/friends', '&limit=10000'))['friends']['items'];
+    List items = (await api.get('users/$userId/friends', '&limit=10000'))['friends']['items'];
     return items.map((item) => User.fromJson(item)).toList();
   }
 }

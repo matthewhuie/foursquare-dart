@@ -25,4 +25,19 @@ class API {
       return null;
     }
   }
+
+  // Performs a POST request to Foursquare API.
+  Future<Map<String, dynamic>> post(String endpoint, [String parameters='']) async {
+    if (_isAuthed) {
+      final response = await http
+        .post(
+          'https://api.foursquare.com/v2/$endpoint?v=20190101$_authParameter',
+          body: parameters
+        ).timeout(Duration(seconds: 5));
+      if (response.statusCode == 200) {
+        return json.decode(response.body)['response'];
+      }
+    }
+    return null;
+  }
 }

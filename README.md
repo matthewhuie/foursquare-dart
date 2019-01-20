@@ -21,7 +21,7 @@ Future<void> initFoursquare() async {
     'FOURSQUARE_CLIENT_SECRET');
   API authed = await API.authed('OAUTH_ACCESS_TOKEN');
 
-  List<Venue> results = await userless.venueSearch(latitude: 40, longitude: -74);
+  List<Venue> results = await Venue.current(api: userless, latitude: 40, longitude: -74);
 
   ...
 
@@ -32,7 +32,7 @@ Future<void> initFoursquare() async {
 - [x] Constructors for userless and authenticated access
 - [x] Basic GET implementation
 - [x] Basic objects - User, Venue
-- [x] Basic API endpoints - userDetails, venueSearch
+- [x] Basic API endpoints - user/X, venues/search
 - [ ] Deeper object implementation
 - [ ] Deeper API endpoint implementation
 - [ ] dartdoc documentation

@@ -15,14 +15,15 @@ import 'package:foursquare/foursquare.dart';
 
 ...
 
-Future<void> initFoursquare() async {
+void main() async {
   API userless = await API.userless(
     'FOURSQUARE_CLIENT_ID', 
     'FOURSQUARE_CLIENT_SECRET');
   API authed = await API.authed('OAUTH_ACCESS_TOKEN');
 
-  List<Venue> results = await Venue.current(api: userless, latitude: 40, longitude: -74);
-
+  Venue current = await Venue.current(authed, 40, -74);
+  print(current.name);
+  
   ...
 
 }

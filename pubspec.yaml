@@ -1,11 +1,11 @@
 name: foursquare
-description: Foursquare for Dart 
-version: 0.0.1
+description: Foursquare for Dart and Flutter, enabling location-based experiences for mobile, web, and server applications.
+version: 0.0.1+2
 author: Matthew Huie <matthew@matthewhuie.com>
 homepage: https://matthewhuie.com
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   http: ^0.12.0

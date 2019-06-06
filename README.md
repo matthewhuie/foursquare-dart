@@ -5,7 +5,7 @@ This is a Dart package for accessing Foursquare API endpoints and Foursquare-rel
 Add this git as a dependency in `pubspec.yaml` of your Flutter project.
 ```yaml
 dependencies:
-  foursquare: '^0.0.1'
+  foursquare: '^0.0.2'
 ```
 
 Import the package into your project.
@@ -42,7 +42,7 @@ void main() async {
 
 ## Links
 - https://github.com/matthewhuie/foursquare-dart
-- https://pub.dartlang.org/packages/foursquare
+- https://pub.dev/packages/foursquare
 - https://enterprise.foursquare.com/products/places
 - https://developer.foursquare.com/places-api
-- https://dartlang.org
+- https://dart.dev

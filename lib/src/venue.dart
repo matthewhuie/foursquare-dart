@@ -1,7 +1,7 @@
 import 'api.dart';
 
 class Venue {
-  Venue({this.venueId, this.name, this.location, this.city, this.state, this.cc, this.category, this.rating});
+  Venue({this.venueId, this.name, this.location, this.city, this.state, this.cc, this.category, this.rating, this.photoPrefix, this.photoSuffix});
 
   final String venueId;
   final String name;
@@ -11,6 +11,8 @@ class Venue {
   final String cc;
   final String category;
   final double rating;
+  final String photoPrefix;
+  final String photoSuffix;
 
   @override
   String toString() {
@@ -30,7 +32,9 @@ class Venue {
           state: json['state'],
           cc: json['cc'],
           category: json['categories'][0]['name'] ?? '',
-          rating: json['rating']
+          rating: json['rating'],
+          photoPrefix: json['bestPhoto']['prefix'],
+          photoSuffix: json['bestPhoto']['suffix']
       );
     } else {
       return null;

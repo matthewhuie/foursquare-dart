@@ -5,7 +5,7 @@ This is a Dart package for accessing Foursquare API endpoints and Foursquare-rel
 Add this git as a dependency in `pubspec.yaml` of your Flutter project.
 ```yaml
 dependencies:
-  foursquare: '^0.0.2'
+  foursquare: '^0.0.3'
 ```
 
 Import the package into your project.
@@ -16,12 +16,12 @@ import 'package:foursquare/foursquare.dart';
 
 void main() async {
   // Used for userless requests
-  API userless = await API.userless(
+  API userless = API.userless(
     'FOURSQUARE_CLIENT_ID', 
     'FOURSQUARE_CLIENT_SECRET');
 
   // Used for authenticated requests
-  API authed = await API.authed('OAUTH_ACCESS_TOKEN');
+  API authed = API.authed('OAUTH_ACCESS_TOKEN');
 
   Venue current = await Venue.current(authed, 40, -74);
   print(current.name);

@@ -2,12 +2,12 @@ import 'package:foursquare/foursquare.dart';
 
 void main() async {
   // Used for userless requests
-  API userless = await API.userless(
+  API userless = API.userless(
     'FOURSQUARE_CLIENT_ID', 
     'FOURSQUARE_CLIENT_SECRET');
 
   // Used for authenticated requests
-  API authed = await API.authed('OAUTH_ACCESS_TOKEN');
+  API authed = API.authed('OAUTH_ACCESS_TOKEN');
 
   Venue current = await Venue.current(userless, 43.6532, -79.3832);
   print('I am at ${current.name}.');

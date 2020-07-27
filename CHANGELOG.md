@@ -1,3 +1,6 @@
+## 0.1.0
+- publishing as first minor version with initial functionality
+
 ## 0.0.4
 - Fixing minor bugs in Venue - removed photos, added null checks, fixed locations
 - Adding Checkin object

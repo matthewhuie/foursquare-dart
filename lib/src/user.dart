@@ -1,4 +1,5 @@
 import 'api.dart';
+import 'checkin.dart';
 
 class User {
   User({this.userId, this.firstName, this.lastName, this.photoPrefix, this.photoSuffix, this.homeCity});
@@ -28,5 +29,10 @@ class User {
   static Future<List<User>> friends(API api, {userId = 'self'}) async {
     List items = (await api.get('users/$userId/friends', '&limit=10000'))['friends']['items'];
     return items.map((item) => User.fromJson(item)).toList();
+  }
+
+  static Future<List<Checkin>> checkins(API api, {userId = 'self'}) async {
+    List items = (await api.get('users/$userId/checkins', '&limit=250'))['checkins']['items'];
+    return items.map((item) => Checkin.fromJson(item)).toList();
   }
 }

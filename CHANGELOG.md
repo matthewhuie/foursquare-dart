@@ -1,3 +1,8 @@
+## 0.0.4
+- Fixing minor bugs in Venue - removed photos, added null checks, fixed locations
+- Adding Checkin object
+- Adding checkins for User
+
 ## 0.0.3
 - Removing unnecessary `await` from example and README
 

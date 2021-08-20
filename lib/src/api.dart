@@ -11,14 +11,15 @@ class API {
     _isAuthed = true;
   }
 
-  String _authParameter;
-  bool _isAuthed;
+  String? _authParameter;
+  late bool _isAuthed;
 
   /// Performs a GET request to Foursquare API.
-  Future<Map<String, dynamic>> get(String endpoint, [String parameters='']) async {
-    final response = await http
-      .get('https://api.foursquare.com/v2/$endpoint?v=20190101$_authParameter$parameters')
-      .timeout(Duration(seconds: 5));
+  Future<Map<String, dynamic>?> get(String endpoint,
+      [String parameters = '']) async {
+    var uri = Uri.dataFromString(
+        'https://api.foursquare.com/v2/$endpoint?v=20190101$_authParameter$parameters');
+    final response = await http.get(uri).timeout(Duration(seconds: 5));
     if (response.statusCode == 200) {
       return json.decode(response.body)['response'];
     } else {
@@ -27,13 +28,13 @@ class API {
   }
 
   // Performs a POST request to Foursquare API.
-  Future<Map<String, dynamic>> post(String endpoint, [String parameters='']) async {
+  Future<Map<String, dynamic>?> post(String endpoint,
+      [String parameters = '']) async {
     if (_isAuthed) {
-      final response = await http
-        .post(
-          'https://api.foursquare.com/v2/$endpoint?v=20190101$_authParameter',
-          body: parameters
-        ).timeout(Duration(seconds: 5));
+      var uri = Uri.dataFromString(
+          'https://api.foursquare.com/v2/$endpoint?v=20190101$_authParameter');
+      final response =
+          await http.post(uri, body: parameters).timeout(Duration(seconds: 5));
       if (response.statusCode == 200) {
         return json.decode(response.body)['response'];
       }

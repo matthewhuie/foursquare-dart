@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class API {
+  final _apiVersion = '20220901';
+
   API.userless(String clientId, String clientSecret) {
     _authParameter = '&client_id=$clientId&client_secret=$clientSecret';
     _isAuthed = false;
@@ -17,7 +19,7 @@ class API {
   /// Performs a GET request to Foursquare API.
   Future<Map<String, dynamic>> get(String endpoint, [String parameters='']) async {
     final response = await http
-      .get('https://api.foursquare.com/v2/$endpoint?v=20190101$_authParameter$parameters')
+      .get('https://api.foursquare.com/v2/$endpoint?v=$_apiVersion$_authParameter$parameters')
       .timeout(Duration(seconds: 5));
     if (response.statusCode == 200) {
       return json.decode(response.body)['response'];
@@ -31,7 +33,7 @@ class API {
     if (_isAuthed) {
       final response = await http
         .post(
-          'https://api.foursquare.com/v2/$endpoint?v=20190101$_authParameter',
+          'https://api.foursquare.com/v2/$endpoint?v=$_apiVersion$_authParameter',
           body: parameters
         ).timeout(Duration(seconds: 5));
       if (response.statusCode == 200) {

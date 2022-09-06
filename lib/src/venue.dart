@@ -25,7 +25,7 @@ class Venue {
       return Venue(
           venueId: json['id'],
           name: json['name'],
-          location: json['location']['formattedAddress'].join(', ') ?? null,
+          location: json['location']['formattedAddress']['text'] ?? null,
           city: json['location']['city'] ?? null,
           state: json['location']['state'] ?? null,
           cc: json['location']['cc'] ?? null,

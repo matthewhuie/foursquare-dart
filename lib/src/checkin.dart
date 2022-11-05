@@ -1,12 +1,12 @@
 class Checkin {
   Checkin({this.checkinId, this.type, this.createdAt, this.private, this.shout, this.venueId});
 
-  final String checkinId;
-  final String type;
-  final int createdAt;
-  final bool private;
-  final String shout;
-  final String venueId;
+  final String? checkinId;
+  final String? type;
+  final int? createdAt;
+  final bool? private;
+  final String? shout;
+  final String? venueId;
 
   factory Checkin.fromJson(Map<String, dynamic> json) {
     return Checkin(

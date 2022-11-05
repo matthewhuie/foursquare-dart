@@ -4,12 +4,12 @@ import 'checkin.dart';
 class User {
   User({this.userId, this.firstName, this.lastName, this.photoPrefix, this.photoSuffix, this.homeCity});
 
-  final String userId;
-  final String firstName;
-  final String lastName;
-  final String photoPrefix;
-  final String photoSuffix;
-  final String homeCity;
+  final String? userId;
+  final String? firstName;
+  final String? lastName;
+  final String? photoPrefix;
+  final String? photoSuffix;
+  final String? homeCity;
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -23,16 +23,16 @@ class User {
   }
 
   static Future<User> get(API api, {userId = 'self'}) async {
-    return User.fromJson((await api.get('users/$userId'))['user']);
+    return User.fromJson((await api.get('users/$userId'))!['user']);
   }
 
   static Future<List<User>> friends(API api, {userId = 'self'}) async {
-    List items = (await api.get('users/$userId/friends', parameters: { 'limit': '10000' }))['friends']['items'];
+    List items = (await api.get('users/$userId/friends', parameters: { 'limit': '10000' }))!['friends']['items'];
     return items.map((item) => User.fromJson(item)).toList();
   }
 
   static Future<List<Checkin>> checkins(API api, {userId = 'self'}) async {
-    List items = (await api.get('users/$userId/checkins', parameters: { 'limit': '250' }))['checkins']['items'];
+    List items = (await api.get('users/$userId/checkins', parameters: { 'limit': '250' }))!['checkins']['items'];
     return items.map((item) => Checkin.fromJson(item)).toList();
   }
 }

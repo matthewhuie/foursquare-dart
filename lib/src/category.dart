@@ -1,5 +1,3 @@
-import 'api.dart';
-
 class Category {
   Category({this.categoryId, this.name});
 

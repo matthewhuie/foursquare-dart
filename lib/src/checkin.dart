@@ -1,6 +1,3 @@
-import 'api.dart';
-import 'venue.dart';
-
 class Checkin {
   Checkin({this.checkinId, this.type, this.createdAt, this.private, this.shout, this.venueId});
 

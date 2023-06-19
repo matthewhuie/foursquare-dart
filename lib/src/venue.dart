@@ -28,7 +28,7 @@ class Venue {
       city: json['location']['city'] ?? null,
       state: json['location']['state'] ?? null,
       cc: json['location']['cc'] ?? null,
-      category: json['categories'][0]['name'] ?? null,
+      category: json['categories'].length > 0 ? json['categories'][0]['name'] : null,
       rating: json['rating'] ?? null
     );
   }

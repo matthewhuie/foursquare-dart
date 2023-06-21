@@ -1,3 +1,6 @@
+## 0.1.2
+- Fixing minor bugs in Venue - category check
+
 ## 0.1.1
 - Require Dart SDK 2.3.0
 - Improve API to use Uri instead of String

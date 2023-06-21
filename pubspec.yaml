@@ -1,6 +1,6 @@
 name: foursquare
 description: Foursquare for Dart and Flutter, enabling location-based experiences for mobile, web, and server applications.
-version: 0.1.1
+version: 0.1.2
 homepage: https://matthewhuie.com
 
 environment:
